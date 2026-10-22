@@ -3,7 +3,7 @@ from insightface.app import FaceAnalysis
 import numpy as np
 import glob
 import pandas as pd
-
+from pathlib import Path
 
 ## Find faces, estimate their gender and age
 
@@ -19,10 +19,10 @@ cv2.imwrite("out.jpg", app.draw_on(img, faces))
 
 ## See if the pictures belong to the same person or not (> 0.4 indicates that it's likely to be the same person)
 emb = lambda p: app.get(cv2.imread(p))[0].normed_embedding
-print(np.dot(emb("yd1.jpg"), emb("yd2.jpg")))
+print(np.dot(emb("people/yd/1.jpg"), emb("people/yd/2.jpg")))
 
 ## Find reference person in a group of people
-me = emb("yd1.jpg")  # the ref pic
+me = emb("people/yd/1.jpg")  # the ref pic
 for f in faces:      # faces from group.jpg
     sim = float(np.dot(me, f.normed_embedding))
     print(f.bbox.astype(int), round(sim, 3))
