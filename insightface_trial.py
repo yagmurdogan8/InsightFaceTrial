@@ -32,6 +32,7 @@ for f in faces:      # faces from group.jpg
         cv2.putText(img, f"ME {sim:.2f}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 3)
 cv2.imwrite("found_me.jpg", img)
 
+## To understand the vector concept further
 app = FaceAnalysis(name="buffalo_l", providers=["CPUExecutionProvider"]); app.prepare(ctx_id=-1)
 paths = sorted(glob.glob("people/*/*.jpg"))
 E = np.array([app.get(cv2.imread(p))[0].normed_embedding for p in paths])
